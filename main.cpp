@@ -8,7 +8,7 @@ int main()
     string name, favourite;
     cout << "ФИО: ";
     cin >> name;
-    cout << "Любимый фильм: ";
+    cout << "Рекомендуемая книга: ";
     cin >> favourite;
     out << name << endl << favourite;
     out.close();
