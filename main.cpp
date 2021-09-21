@@ -1,38 +1,69 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <map>
+#include <vector>
 using namespace std;
 int main()
 {
-    ofstream out ("/home/batman/school/task1/result.txt", ios_base::app) ;
-    ifstream res ("/home/batman/school/task1/result.txt");
-    string question, answer, result;
+    ofstream out ("../school/result.txt", ios_base::app);
+    ifstream in ("../school/questions.txt", ios_base::in);
     int choice;
-    cout << "Отправьте:" << endl << "1, если Вам нужно провести опрос пользователя" << endl << "2, если Вам нужны результаты опроса" << endl;
+    cout << "Choose:" << endl << "1, if u need a test" << endl << "2, if u need results" << endl;
     cin >> choice;
-    ifstream in ("/home/batman/school/task1/questions.txt");
     if(choice == 1)
     {
-        if(in.is_open())
+        string question, answer, name;
+        cout << "Your name:" << endl;
+        cin >> name;
+        out << name << endl << "#^#^#^#" << endl;
+        if(!out.is_open())
+            cout << "you fucked up" << endl;
+        if(!in.is_open())
+            cout << "I fucked up" << endl;
+        while(getline(in, question))
         {
-            while(getline(in, question))
-            {
-                cout << question << endl;
-                cin >> answer;
-                out << answer << endl;
-            }
+            cout << question << endl;
+            cin >> answer;
+            out << answer << endl;
         }
+        out << "#*#*#*#" << endl;
+        out.close();
     }
     if(choice == 2)
     {
-        if(res.is_open())
+        int switcher = 0;
+        string temp;
+        ifstream res ("../school/result.txt");
+        map<string, vector<string>> name_answers;
+        string temp_name;
+        while(!res.eof())
         {
-            while(getline(res, result))
+            getline(res, temp);
+            if (temp == "#^#^#^#")
+                switcher = 1;
+            if (temp == "#*#*#*#")
+                switcher = 0;
+            if (temp != "#^#^#^#" && temp != "#*#*#*#")
             {
-                cout << result << endl;
+                if (switcher == 0)
+                {
+                    temp_name = temp;
+                    name_answers[temp_name];
+                }
+                if (switcher == 1)
+                    name_answers[temp_name].push_back(temp);
             }
         }
+        for (auto it = name_answers.begin(); it != name_answers.end(); ++it)
+        {
+            cout << it->first << endl;
+            for(int i=0; i < it->second.size(); i++)
+            {
+                cout << it->second[i] << "; ";
+            }
+            cout << endl;
+        }
     }
-    out.close();
     return 0;
 }
