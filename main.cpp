@@ -67,22 +67,24 @@ int main()
     }
     if(choice==3)
     {
-        ofstream out;
-        out.open("../school/questions.txt");
         string question;
-        bool end= false;
+        string all_questions="";
         cout << "if you finish enter /end" << endl << "enter your questions:" << endl;
-        while(!end)
+        while(true)
         {
             getline(cin, question);
             if(question=="/end")
-                end= true;
+                break;
             if(question!="/end")
-                out << question << endl;
+                all_questions=all_questions+question+"\n";
 
         }
+        all_questions.erase(all_questions.begin(), all_questions.begin()+1);
+        all_questions.erase(all_questions.end()-1, all_questions.end());
+        ofstream out ("../school/questions.txt");
+        out << all_questions;
         out.close();
-        out.open("..\\school\\result.txt");
+        out.open("../school/result.txt", ofstream::out | ofstream::trunc);
         out.close();
     }
     return 0;
