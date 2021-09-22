@@ -1,5 +1,4 @@
 $ cat .gitignore
 school.pro
 school.pro.user
-*.txt
 
