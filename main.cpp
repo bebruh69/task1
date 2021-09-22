@@ -9,7 +9,7 @@ int main()
     ofstream out ("../school/result.txt", ios_base::app);
     ifstream in ("../school/questions.txt", ios_base::in);
     int choice;
-    cout << "Choose:" << endl << "1, if u need a test" << endl << "2, if u need results" << endl;
+    cout << "Choose:" << endl << "1, if u need a test" << endl << "2, if u need results" << endl << "3, if u need change questions" << endl;
     cin >> choice;
     if(choice == 1)
     {
@@ -64,6 +64,26 @@ int main()
             }
             cout << endl;
         }
+    }
+    if(choice==3)
+    {
+        ofstream out;
+        out.open("../school/questions.txt");
+        string question;
+        bool end= false;
+        cout << "if you finish enter /end" << endl << "enter your questions:" << endl;
+        while(!end)
+        {
+            getline(cin, question);
+            if(question=="/end")
+                end= true;
+            if(question!="/end")
+                out << question << endl;
+
+        }
+        out.close();
+        out.open("..\\school\\result.txt");
+        out.close();
     }
     return 0;
 }
